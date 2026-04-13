@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Stock Management System
+
+A warehouse/distribution stock and sales management system built for Indian businesses. Manage products, customers, sales, inventory alerts, and staff — all with organization-level data isolation.
+
+## Tech Stack
+
+- **Frontend**: Next.js 16 (App Router), TypeScript, Tailwind CSS, shadcn/ui
+- **Backend**: Next.js API Routes, Prisma 6, PostgreSQL
+- **Auth**: NextAuth v4 (JWT strategy, credentials provider)
+- **State**: TanStack Query, Zustand
+- **Validation**: Zod v4
+- **Notifications**: Sonner (toasts)
+
+## Features
+
+- **Products** — CRUD with SKU, barcode, cost/selling price, stock tracking, units (piece, box, kg, etc.)
+- **Categories & Tax Rates** — Organize products, GST tax rates (0%, 5%, 12%, 18%, 28%)
+- **Customers** — Manage customer details with GSTIN support
+- **Sales** — Create sales with line items, automatic tax calculation, payment tracking (Cash, UPI, Bank Transfer, Cheque)
+- **Inventory Alerts** — Low stock and out-of-stock notifications
+- **Role-Based Access Control** — Users, Roles, Permissions (Admin, Staff, Viewer)
+- **Multi-Tenancy** — Organization-scoped data isolation (planned)
+
+## Project Structure
+
+```
+src/
+├── app/              # Pages (App Router) + API routes
+├── components/       # Shared UI components (shadcn/ui, layout)
+├── services/         # Backend services (Prisma queries)
+├── lib/              # Utilities, auth, db, constants, validations, locales
+├── types/            # TypeScript type definitions
+├── hooks/            # Custom React hooks
+├── providers/        # React context providers
+├── store/            # Zustand state stores
+├── styles/           # CSS / Tailwind
+└── middleware.ts     # Route protection
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js 18+
+- PostgreSQL database
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository
+   ```bash
+   git clone <repo-url>
+   cd stock
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. Install dependencies
+   ```bash
+   npm install
+   ```
 
-## Learn More
+3. Configure environment
+   ```bash
+   cp .env.example .env
+   # Set DATABASE_URL to your PostgreSQL connection string
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. Run database migrations and seed
+   ```bash
+   npx prisma migrate dev --name init
+   npx prisma db seed
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. Start the development server
+   ```bash
+   npm run dev
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+6. Open [http://localhost:3000](http://localhost:3000)
 
-## Deploy on Vercel
+### Default Login
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Email**: admin@stock.com
+- **Password**: admin123
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+Private
