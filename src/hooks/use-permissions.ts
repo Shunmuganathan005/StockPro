@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import type { PermissionName } from "@/shared/constants/permissions";
+import type { PermissionName } from "@/lib/constants/permissions";
 
 export function usePermissions() {
   const { data: session, status } = useSession();

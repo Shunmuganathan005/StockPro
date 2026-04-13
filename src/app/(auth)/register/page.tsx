@@ -15,7 +15,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { t } from "@/shared/locales";
+import { t } from "@/lib/locales";
 
 export default function RegisterPage() {
   const router = useRouter();

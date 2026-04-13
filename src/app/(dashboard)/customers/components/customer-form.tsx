@@ -12,7 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { t } from "@/shared/locales";
+import { t } from "@/lib/locales";
 
 interface CustomerFormData {
   name: string;

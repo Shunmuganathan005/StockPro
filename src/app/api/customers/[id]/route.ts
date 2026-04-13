@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { requirePermission, requireAuth, handleApiError } from "@/backend/auth/permissions";
-import { PERMISSIONS } from "@/shared/constants/permissions";
-import { updateCustomerSchema } from "@/shared/validations/customer";
-import * as customerService from "@/backend/services/customer.service";
+import { requirePermission, requireAuth, handleApiError } from "@/lib/permissions";
+import { PERMISSIONS } from "@/lib/constants/permissions";
+import { updateCustomerSchema } from "@/lib/validations/customer";
+import * as customerService from "@/services/customer.service";
 
 export async function GET(
   request: Request,

@@ -19,7 +19,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Trash2, Plus, Search, ChevronLeft, ChevronRight } from "lucide-react";
-import { t } from "@/shared/locales";
+import { t } from "@/lib/locales";
 
 interface Customer {
   id: string;

@@ -1,4 +1,4 @@
-import { prisma } from "@/backend/db/prisma";
+import { prisma } from "@/lib/db";
 import type { Prisma, PaymentStatus } from "@prisma/client";
 
 interface ListSalesParams {

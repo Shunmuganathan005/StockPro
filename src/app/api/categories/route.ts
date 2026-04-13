@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { requirePermission, requireAuth, handleApiError } from "@/backend/auth/permissions";
-import { PERMISSIONS } from "@/shared/constants/permissions";
-import * as categoryService from "@/backend/services/category.service";
+import { requirePermission, requireAuth, handleApiError } from "@/lib/permissions";
+import { PERMISSIONS } from "@/lib/constants/permissions";
+import * as categoryService from "@/services/category.service";
 
 export async function GET() {
   try {

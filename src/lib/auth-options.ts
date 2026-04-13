@@ -1,7 +1,7 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import { prisma } from "@/backend/db/prisma";
+import { prisma } from "@/lib/db";
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -69,7 +69,7 @@ export const authOptions: NextAuthOptions = {
             name: fullUser.role.name,
           };
           token.permissions = fullUser.role.rolePermissions.map(
-            (rp) => rp.permission.name
+            (rp: { permission: { name: string } }) => rp.permission.name
           );
         }
       }

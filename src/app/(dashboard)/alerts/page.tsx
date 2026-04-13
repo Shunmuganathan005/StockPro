@@ -5,7 +5,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import Link from "next/link";
 import { PageHeader } from "@/components/layout/page-header";
-import { t } from "@/shared/locales";
+import { t } from "@/lib/locales";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {

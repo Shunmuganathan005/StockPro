@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/backend/auth/auth-options";
-import { prisma } from "@/backend/db/prisma";
+import { authOptions } from "@/lib/auth-options";
+import { prisma } from "@/lib/db";
 import { Sidebar } from "@/components/layout/sidebar";
 
 export default async function DashboardLayout({
@@ -30,7 +30,7 @@ export default async function DashboardLayout({
   });
 
   const permissions = user
-    ? user.role.rolePermissions.map((rp) => rp.permission.name)
+    ? user.role.rolePermissions.map((rp: { permission: { name: string } }) => rp.permission.name)
     : [];
 
   return (

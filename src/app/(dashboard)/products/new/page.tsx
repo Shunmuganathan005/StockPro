@@ -4,9 +4,9 @@ import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { PageHeader } from "@/components/layout/page-header";
-import { ProductForm } from "@/components/products/product-form";
+import { ProductForm } from "@/app/(dashboard)/products/components/product-form";
 import { Card, CardContent } from "@/components/ui/card";
-import { t } from "@/shared/locales";
+import { t } from "@/lib/locales";
 
 export default function NewProductPage() {
   const router = useRouter();

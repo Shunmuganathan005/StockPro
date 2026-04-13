@@ -1,6 +1,6 @@
 "use client";
 
-import { t } from "@/shared/locales";
+import { t } from "@/lib/locales";
 import { useQuery } from "@tanstack/react-query";
 import { Package, AlertTriangle, ShoppingCart, IndianRupee } from "lucide-react";
 import {

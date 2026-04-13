@@ -26,7 +26,7 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Pencil, Trash2, Plus } from "lucide-react";
-import { t } from "@/shared/locales";
+import { t } from "@/lib/locales";
 
 interface Category {
   id: string;

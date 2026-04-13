@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { requireAuth, handleApiError } from "@/backend/auth/permissions";
-import * as alertService from "@/backend/services/alert.service";
+import { requireAuth, handleApiError } from "@/lib/permissions";
+import * as alertService from "@/services/alert.service";
 
 export async function GET() {
   try {

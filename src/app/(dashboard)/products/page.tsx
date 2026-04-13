@@ -29,7 +29,7 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Search, Plus, Trash2 } from "lucide-react";
-import { t } from "@/shared/locales";
+import { t } from "@/lib/locales";
 
 interface Product {
   id: string;

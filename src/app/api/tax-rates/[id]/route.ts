@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { requirePermission, handleApiError } from "@/backend/auth/permissions";
-import { PERMISSIONS } from "@/shared/constants/permissions";
-import { prisma } from "@/backend/db/prisma";
+import { requirePermission, handleApiError } from "@/lib/permissions";
+import { PERMISSIONS } from "@/lib/constants/permissions";
+import { prisma } from "@/lib/db";
 
 export async function PUT(
   request: Request,

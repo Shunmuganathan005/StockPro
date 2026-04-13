@@ -36,7 +36,7 @@ import {
   MapPin,
   FileText,
 } from "lucide-react";
-import { t } from "@/shared/locales";
+import { t } from "@/lib/locales";
 
 interface Customer {
   id: string;

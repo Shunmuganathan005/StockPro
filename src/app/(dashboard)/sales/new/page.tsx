@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Plus, Trash2, Loader2 } from "lucide-react";
 import { PageHeader } from "@/components/layout/page-header";
-import { t } from "@/shared/locales";
+import { t } from "@/lib/locales";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

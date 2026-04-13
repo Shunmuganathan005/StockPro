@@ -14,7 +14,7 @@ import {
   Shield,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { t } from "@/shared/locales";
+import { t } from "@/lib/locales";
 
 interface NavItem {
   label: string;

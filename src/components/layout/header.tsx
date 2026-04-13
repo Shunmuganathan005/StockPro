@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { t } from "@/shared/locales";
+import { t } from "@/lib/locales";
 
 interface HeaderProps {
   title: string;

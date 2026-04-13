@@ -5,11 +5,11 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { PageHeader } from "@/components/layout/page-header";
-import { CustomerForm } from "@/components/customers/customer-form";
+import { CustomerForm } from "@/app/(dashboard)/customers/components/customer-form";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ArrowLeft } from "lucide-react";
-import { t } from "@/shared/locales";
+import { t } from "@/lib/locales";
 
 interface CustomerFormData {
   name: string;

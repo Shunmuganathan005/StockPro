@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { requirePermission, handleApiError } from "@/backend/auth/permissions";
-import { PERMISSIONS } from "@/shared/constants/permissions";
-import { createPaymentSchema } from "@/shared/validations/sale";
-import * as paymentService from "@/backend/services/payment.service";
+import { requirePermission, handleApiError } from "@/lib/permissions";
+import { PERMISSIONS } from "@/lib/constants/permissions";
+import { createPaymentSchema } from "@/lib/validations/sale";
+import * as paymentService from "@/services/payment.service";
 
 export async function POST(request: Request) {
   try {

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { t } from "@/shared/locales";
+import { t } from "@/lib/locales";
 import { usePermissions } from "@/hooks/use-permissions";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";

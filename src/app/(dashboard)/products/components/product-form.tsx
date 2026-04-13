@@ -13,8 +13,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { UNITS } from "@/shared/constants/enums";
-import { t } from "@/shared/locales";
+import { UNITS } from "@/lib/constants/enums";
+import { t } from "@/lib/locales";
 
 interface ProductFormData {
   name: string;

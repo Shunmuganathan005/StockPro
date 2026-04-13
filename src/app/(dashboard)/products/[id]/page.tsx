@@ -29,7 +29,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Pencil, Trash2, ArrowLeft } from "lucide-react";
 import { useState } from "react";
-import { t } from "@/shared/locales";
+import { t } from "@/lib/locales";
 
 interface Product {
   id: string;

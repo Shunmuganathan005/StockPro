@@ -1,4 +1,4 @@
-import { t } from "@/shared/locales";
+import { t } from "@/lib/locales";
 
 export const UNITS = [
   { value: "PIECE", label: t("enums.units.PIECE") },

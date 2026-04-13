@@ -1,6 +1,6 @@
 "use client";
 
-import { t } from "@/shared/locales";
+import { t } from "@/lib/locales";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -16,67 +16,60 @@ import {
   CardAction,
 } from "@/components/ui/card";
 
-const formatCurrency = (amount: number) =>
-  new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
-  }).format(amount);
-
-function getStatusBadge(status: string) {
-  switch (status) {
-    case "UNPAID":
+function getAlertTypeBadge(type: string) {
+  switch (type) {
+    case "OUT_OF_STOCK":
       return (
         <Badge className="bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">
-          {t("enums.paymentStatuses.UNPAID")}
+          {t("alerts.types.outOfStock")}
         </Badge>
       );
-    case "PARTIAL":
+    case "LOW_STOCK":
       return (
         <Badge className="bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400">
-          {t("enums.paymentStatuses.PARTIAL")}
-        </Badge>
-      );
-    case "PAID":
-      return (
-        <Badge className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
-          {t("enums.paymentStatuses.PAID")}
+          {t("alerts.types.lowStock")}
         </Badge>
       );
     default:
-      return <Badge variant="secondary">{status}</Badge>;
+      return <Badge variant="secondary">{type}</Badge>;
   }
 }
 
-interface Sale {
+interface Alert {
   id: string;
-  saleNumber: string;
-  customer: { name: string; businessName?: string };
-  grandTotal: number;
-  paymentStatus: string;
+  type: string;
+  message: string;
+  productId: string;
+  product: {
+    id: string;
+    name: string;
+    stockQuantity: number;
+    sku: string;
+  };
   createdAt: string;
 }
 
-export function RecentSales() {
+export function LowStockList() {
   const router = useRouter();
 
   const { data, isLoading } = useQuery({
-    queryKey: ["dashboard", "recent-sales"],
+    queryKey: ["dashboard", "low-stock"],
     queryFn: async () => {
-      const res = await fetch("/api/sales?pageSize=5");
-      if (!res.ok) throw new Error("Failed to fetch recent sales");
+      const res = await fetch("/api/alerts?isRead=false&pageSize=5");
+      if (!res.ok) throw new Error("Failed to fetch alerts");
       const json = await res.json();
       return json.data;
     },
   });
 
-  const sales: Sale[] = data?.items ?? [];
+  const alerts: Alert[] = data?.items ?? [];
 
   return (
     <Card className="flex flex-col">
       <CardHeader>
-        <CardTitle>{t("dashboard.recentSales")}</CardTitle>
+        <CardTitle>{t("dashboard.lowStockProducts")}</CardTitle>
         <CardAction>
-          <Link href="/sales" className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}>
+          <Link href="/alerts" className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}>
             {t("common.viewAll")}
             <ArrowRight data-icon="inline-end" className="size-4" />
           </Link>
@@ -87,38 +80,35 @@ export function RecentSales() {
           <div className="flex items-center justify-center py-8">
             <Loader2 className="size-5 animate-spin text-muted-foreground" />
           </div>
-        ) : sales.length === 0 ? (
+        ) : alerts.length === 0 ? (
           <p className="py-8 text-center text-sm text-muted-foreground">
-            {t("dashboard.noSalesYet")}
+            {t("dashboard.noLowStockAlerts")}
           </p>
         ) : (
           <div className="space-y-1">
-            {sales.map((sale) => (
+            {alerts.map((alert) => (
               <div
-                key={sale.id}
+                key={alert.id}
                 className="flex items-center justify-between rounded-lg px-3 py-2.5 transition-colors hover:bg-muted/50 cursor-pointer"
-                onClick={() => router.push(`/sales/${sale.id}`)}
+                onClick={() => router.push(`/products/${alert.productId}`)}
               >
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium">
-                      {sale.saleNumber}
+                      {alert.product.name}
                     </span>
-                    {getStatusBadge(sale.paymentStatus)}
+                    {getAlertTypeBadge(alert.type)}
                   </div>
-                  <p className="mt-0.5 truncate text-xs text-muted-foreground">
-                    {sale.customer.businessName || sale.customer.name}
-                    {" \u00B7 "}
-                    {new Date(sale.createdAt).toLocaleDateString("en-IN", {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric",
-                    })}
+                  <p className="mt-0.5 text-xs text-muted-foreground">
+                    {t("dashboard.skuPrefix")} {alert.product.sku}
                   </p>
                 </div>
-                <span className="ml-4 shrink-0 text-sm font-semibold">
-                  {formatCurrency(sale.grandTotal)}
-                </span>
+                <div className="ml-4 shrink-0 text-right">
+                  <span className="text-sm font-semibold">
+                    {alert.product.stockQuantity}
+                  </span>
+                  <p className="text-xs text-muted-foreground">{t("dashboard.inStock")}</p>
+                </div>
               </div>
             ))}
           </div>

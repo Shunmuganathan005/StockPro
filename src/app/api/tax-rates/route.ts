@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { requirePermission, requireAuth, handleApiError } from "@/backend/auth/permissions";
-import { PERMISSIONS } from "@/shared/constants/permissions";
-import { prisma } from "@/backend/db/prisma";
+import { requirePermission, requireAuth, handleApiError } from "@/lib/permissions";
+import { PERMISSIONS } from "@/lib/constants/permissions";
+import { prisma } from "@/lib/db";
 
 export async function GET() {
   try {
