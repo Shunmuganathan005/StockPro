@@ -31,7 +31,8 @@
     "inactive": "Inactive",
     "paginationPage": "Page {page} of {totalPages}",
     "paginationTotal": "Showing page {page} of {totalPages} ({total} total)",
-    "paginationTotalShort": "Page {page} of {totalPages} ({total} total)"
+    "paginationTotalShort": "Page {page} of {totalPages} ({total} total)",
+    "optional": "optional"
   },
   "brand": {
     "name": "StockPro",
@@ -469,6 +470,104 @@
         "title": "Delete Role",
         "description": "Are you sure you want to delete \"{name}\"? Roles with assigned users cannot be deleted."
       }
+    }
+  },
+  "places": {
+    "title": "Places",
+    "description": "Manage collection places",
+    "addPlace": "Add Place",
+    "editPlace": "Edit Place",
+    "nameLabel": "Name",
+    "namePlaceholder": "Place name",
+    "loadingPlaces": "Loading places...",
+    "failedToLoad": "Failed to load places. Please try again.",
+    "noPlacesFound": "No places found.",
+    "placeCreatedSuccess": "Place created successfully",
+    "placeUpdatedSuccess": "Place updated successfully",
+    "placeDeletedSuccess": "Place deleted successfully",
+    "deleteConfirm": "Are you sure you want to delete \"{name}\"?",
+    "columns": {
+      "name": "Name",
+      "vendors": "Vendors",
+      "status": "Status"
+    }
+  },
+  "vendors": {
+    "title": "Vendors",
+    "description": "Manage vendors by place",
+    "addVendor": "Add Vendor",
+    "editVendor": "Edit Vendor",
+    "nameLabel": "Name",
+    "namePlaceholder": "Vendor name",
+    "placeLabel": "Place",
+    "placePlaceholder": "Select a place",
+    "filterByPlace": "Filter by place:",
+    "allPlaces": "All Places",
+    "loadingVendors": "Loading vendors...",
+    "failedToLoad": "Failed to load vendors. Please try again.",
+    "noVendorsFound": "No vendors found.",
+    "vendorCreatedSuccess": "Vendor created successfully",
+    "vendorUpdatedSuccess": "Vendor updated successfully",
+    "vendorDeletedSuccess": "Vendor deleted successfully",
+    "productsUpdatedSuccess": "Products updated successfully",
+    "deleteConfirm": "Are you sure you want to delete \"{name}\"?",
+    "manageProducts": "Manage Products",
+    "noProductsAssigned": "No products assigned yet.",
+    "productAlreadyAdded": "This product is already in the list.",
+    "invalidRate": "Please enter a valid rate.",
+    "productLabel": "Product",
+    "rateLabel": "Rate (INR)",
+    "selectProduct": "Select product",
+    "columns": {
+      "name": "Name",
+      "place": "Place",
+      "products": "Products",
+      "status": "Status",
+      "product": "Product",
+      "rate": "Rate"
+    }
+  },
+  "salespersons": {
+    "title": "Salespersons",
+    "description": "Manage salespersons and their place assignments",
+    "addSalesperson": "Add Salesperson",
+    "editSalesperson": "Edit Salesperson",
+    "nameLabel": "Name",
+    "namePlaceholder": "Salesperson name",
+    "phoneLabel": "Phone",
+    "phonePlaceholder": "Phone number",
+    "loadingSalespersons": "Loading salespersons...",
+    "loadingSalesperson": "Loading salesperson...",
+    "failedToLoad": "Failed to load. Please try again.",
+    "noSalespersonsFound": "No salespersons found.",
+    "backToSalespersons": "Back to Salespersons",
+    "salespersonCreatedSuccess": "Salesperson created successfully",
+    "salespersonUpdatedSuccess": "Salesperson updated successfully",
+    "placesUpdatedSuccess": "Places updated successfully",
+    "assignedPlaces": "Assigned Places",
+    "noPlacesAvailable": "No places available. Add places first.",
+    "savePlaces": "Save Place Assignments",
+    "collectionHistory": "Collection History",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "applyDates": "Apply",
+    "noHistoryFound": "No collection history found for this period.",
+    "daySubtotal": "Subtotal ({date})",
+    "grandTotal": "Grand Total",
+    "columns": {
+      "name": "Name",
+      "phone": "Phone",
+      "places": "Places",
+      "status": "Status"
+    },
+    "historyColumns": {
+      "date": "Date",
+      "vendor": "Vendor",
+      "place": "Place",
+      "product": "Product",
+      "qty": "Qty",
+      "rate": "Rate",
+      "amount": "Amount"
     }
   },
   "enums": {
