@@ -134,6 +134,7 @@ export async function getSalespersonVendorProducts(id: string, orgId: string) {
                 where: { isActive: true },
                 include: {
                   products: {
+                    where: { product: { isActive: true } },
                     include: { product: true },
                   },
                 },

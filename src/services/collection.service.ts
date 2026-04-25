@@ -81,6 +81,10 @@ export async function createCollection(
   },
   orgId: string
 ) {
+  if (!data.items || data.items.length === 0) {
+    throw new Error("At least one item is required");
+  }
+
   return prisma.$transaction(async (tx) => {
     // Verify salesperson
     const salesperson = await tx.salesperson.findUnique({
@@ -107,21 +111,28 @@ export async function createCollection(
       );
     }
 
+    // Bulk-fetch vendors and products to avoid N+1 queries
+    const vendorIds = data.items.map((i) => i.vendorId);
+    const productIds = data.items.map((i) => i.productId);
+
+    const [vendors, products] = await Promise.all([
+      tx.vendor.findMany({ where: { id: { in: vendorIds }, organizationId: orgId } }),
+      tx.product.findMany({ where: { id: { in: productIds }, organizationId: orgId } }),
+    ]);
+
+    const vendorMap = new Map(vendors.map((v) => [v.id, v]));
+    const productMap = new Map(products.map((p) => [p.id, p]));
+
     // Validate items and compute totals
     const itemsData: Prisma.CollectionItemCreateManyCollectionInput[] = [];
     let totalQuantity = 0;
     let totalAmount = 0;
 
     for (const item of data.items) {
-      const vendor = await tx.vendor.findUnique({ where: { id: item.vendorId } });
-      if (!vendor || vendor.organizationId !== orgId) {
-        throw new Error(`Vendor not found: ${item.vendorId}`);
-      }
-
-      const product = await tx.product.findUnique({ where: { id: item.productId } });
-      if (!product || product.organizationId !== orgId) {
-        throw new Error(`Product not found: ${item.productId}`);
-      }
+      const vendor = vendorMap.get(item.vendorId);
+      if (!vendor) throw new Error(`Vendor not found: ${item.vendorId}`);
+      const product = productMap.get(item.productId);
+      if (!product) throw new Error(`Product not found: ${item.productId}`);
 
       const amount = Math.round(item.quantity * item.rate * 100) / 100;
       totalQuantity += item.quantity;
@@ -173,6 +184,10 @@ export async function updateCollection(
   },
   orgId: string
 ) {
+  if (!data.items || data.items.length === 0) {
+    throw new Error("At least one item is required");
+  }
+
   return prisma.$transaction(async (tx) => {
     const collection = await tx.collection.findUnique({ where: { id } });
     if (!collection || collection.organizationId !== orgId) {
@@ -182,21 +197,28 @@ export async function updateCollection(
     // Delete all existing items (cascade would handle it but we do it explicitly)
     await tx.collectionItem.deleteMany({ where: { collectionId: id } });
 
+    // Bulk-fetch vendors and products to avoid N+1 queries
+    const vendorIds = data.items.map((i) => i.vendorId);
+    const productIds = data.items.map((i) => i.productId);
+
+    const [vendors, products] = await Promise.all([
+      tx.vendor.findMany({ where: { id: { in: vendorIds }, organizationId: orgId } }),
+      tx.product.findMany({ where: { id: { in: productIds }, organizationId: orgId } }),
+    ]);
+
+    const vendorMap = new Map(vendors.map((v) => [v.id, v]));
+    const productMap = new Map(products.map((p) => [p.id, p]));
+
     // Validate and recompute
     const itemsData: Prisma.CollectionItemCreateManyCollectionInput[] = [];
     let totalQuantity = 0;
     let totalAmount = 0;
 
     for (const item of data.items) {
-      const vendor = await tx.vendor.findUnique({ where: { id: item.vendorId } });
-      if (!vendor || vendor.organizationId !== orgId) {
-        throw new Error(`Vendor not found: ${item.vendorId}`);
-      }
-
-      const product = await tx.product.findUnique({ where: { id: item.productId } });
-      if (!product || product.organizationId !== orgId) {
-        throw new Error(`Product not found: ${item.productId}`);
-      }
+      const vendor = vendorMap.get(item.vendorId);
+      if (!vendor) throw new Error(`Vendor not found: ${item.vendorId}`);
+      const product = productMap.get(item.productId);
+      if (!product) throw new Error(`Product not found: ${item.productId}`);
 
       const amount = Math.round(item.quantity * item.rate * 100) / 100;
       totalQuantity += item.quantity;
@@ -234,6 +256,9 @@ export async function updateCollection(
   });
 }
 
+// Hard delete: Collection has no isActive field.
+// CollectionItems are removed automatically via CASCADE.
+// Financial audit history should be maintained through the accounting layer.
 export async function deleteCollection(id: string, orgId: string) {
   const collection = await prisma.collection.findUnique({ where: { id } });
   if (!collection || collection.organizationId !== orgId) {
@@ -244,8 +269,9 @@ export async function deleteCollection(id: string, orgId: string) {
 }
 
 export async function getSummary(date: Date, orgId: string) {
+  const dateOnly = new Date(date.toISOString().split("T")[0]);
   return prisma.collection.findMany({
-    where: { date: { equals: date }, organizationId: orgId },
+    where: { date: { equals: dateOnly }, organizationId: orgId },
     include: {
       salesperson: true,
       items: {

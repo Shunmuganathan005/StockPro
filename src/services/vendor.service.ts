@@ -77,16 +77,16 @@ export async function updateVendor(
     }
   }
 
-  // If name or placeId is changing, check uniqueness against the resolved placeId
-  if (data.name && data.name !== vendor.name) {
-    const effectivePlaceId = data.placeId ?? vendor.placeId;
+  // Check uniqueness for any change that affects the (name, placeId) unique constraint
+  const effectiveName = data.name !== undefined ? data.name : vendor.name;
+  const effectivePlaceId = data.placeId !== undefined ? data.placeId : vendor.placeId;
+
+  if (effectiveName !== vendor.name || effectivePlaceId !== vendor.placeId) {
     const existing = await prisma.vendor.findUnique({
-      where: { name_placeId: { name: data.name, placeId: effectivePlaceId } },
+      where: { name_placeId: { name: effectiveName, placeId: effectivePlaceId } },
     });
     if (existing && existing.id !== id) {
-      throw new Error(
-        `A vendor named "${data.name}" already exists at this place`
-      );
+      throw new Error("A vendor with this name already exists at this place");
     }
   }
 
