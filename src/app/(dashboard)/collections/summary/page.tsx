@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { ChevronDown, ChevronRight } from "lucide-react";
@@ -62,12 +62,7 @@ export default function CollectionSummaryPage() {
   const [date, setDate] = useState(todayStr());
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
 
-  // Permission guard
-  if (!permLoading && !hasPermission("collections.view")) {
-    router.replace("/dashboard");
-    return null;
-  }
-
+  // Query — called unconditionally to satisfy Rules of Hooks
   const { data: rows = [], isLoading } = useQuery<SummaryRow[]>({
     queryKey: ["collections-summary", date],
     queryFn: async () => {
@@ -131,6 +126,13 @@ export default function CollectionSummaryPage() {
     [grouped]
   );
 
+  // Permission redirect via useEffect — safe, does not affect hook order
+  useEffect(() => {
+    if (!permLoading && !hasPermission("collections.view")) {
+      router.replace("/dashboard");
+    }
+  }, [permLoading, hasPermission, router]);
+
   function toggleExpanded(id: string) {
     setExpanded((prev) => {
       const next = new Set(prev);
@@ -142,6 +144,9 @@ export default function CollectionSummaryPage() {
       return next;
     });
   }
+
+  // Guard render — safe to return early after all hooks are called
+  if (!permLoading && !hasPermission("collections.view")) return null;
 
   return (
     <div className="space-y-6 p-6">
