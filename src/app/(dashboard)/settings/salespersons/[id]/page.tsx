@@ -135,6 +135,7 @@ export default function SalespersonDetailPage() {
   // Sync checked places when salesperson loads
   useEffect(() => {
     if (salesperson) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCheckedPlaceIds(new Set(salesperson.places.map((sp) => sp.place.id)));
     }
   }, [salesperson]);

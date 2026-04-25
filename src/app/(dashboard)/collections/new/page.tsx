@@ -107,6 +107,7 @@ export default function NewCollectionPage() {
           amount: 0,
         }))
     );
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLineItems(items);
     setRemovedItems({});
   }, [vendorProductsQuery.data]);
