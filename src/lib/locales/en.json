@@ -53,7 +53,11 @@
     "profile": "Profile",
     "signOut": "Sign out",
     "srAlerts": "Alerts",
-    "srUserMenu": "User menu"
+    "srUserMenu": "User menu",
+    "collections": "Collections",
+    "salespersons": "Salespersons",
+    "places": "Places",
+    "vendors": "Vendors"
   },
   "auth": {
     "signIn": "Sign In",
@@ -612,6 +616,16 @@
     "noSalespersonSelected": "Select a salesperson to load vendor-products",
     "loading": "Loading...",
     "back": "Back to Collections"
+  },
+  "summary": {
+    "title": "Daily Collection Summary",
+    "date": "Date",
+    "grandTotal": "Grand Total",
+    "qty": "Qty",
+    "amount": "Amount",
+    "noData": "No collections found for this date.",
+    "collapse": "Collapse",
+    "expand": "Expand"
   },
   "enums": {
     "units": {

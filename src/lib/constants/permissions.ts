@@ -15,8 +15,8 @@ export const PERMISSIONS = {
   ROLES_MANAGE: "roles.manage",
   SETTINGS_MANAGE: "settings.manage",
   COLLECTIONS_VIEW: "collections.view",
+  COLLECTIONS_CREATE: "collections.create",
   COLLECTIONS_MANAGE: "collections.manage",
-  COLLECTIONS_REPORT: "collections.report",
 } as const;
 
 export type PermissionName = (typeof PERMISSIONS)[keyof typeof PERMISSIONS];
