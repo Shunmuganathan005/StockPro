@@ -19,6 +19,9 @@ const PERMISSIONS = [
   { name: "users.manage", description: "Manage users", module: "users" },
   { name: "roles.manage", description: "Manage roles", module: "roles" },
   { name: "settings.manage", description: "Manage settings", module: "settings" },
+  { name: "collection.view",   description: "View collection register data",                      module: "collection" },
+  { name: "collection.entry",  description: "Create and edit daily collection entries",            module: "collection" },
+  { name: "collection.manage", description: "Manage commodities, vendors, sales persons, places", module: "collection" },
 ];
 
 const ROLES = {
@@ -32,12 +35,14 @@ const ROLES = {
       "dashboard.view", "products.view", "products.create", "products.edit",
       "customers.view", "customers.create", "customers.edit",
       "sales.view", "sales.create", "payments.record",
+      "collection.view", "collection.entry",
     ],
   },
   Viewer: {
     description: "Read-only access",
     permissions: [
       "dashboard.view", "products.view", "customers.view", "sales.view",
+      "collection.view",
     ],
   },
 };
